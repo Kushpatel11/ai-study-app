@@ -1,16 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-interface Message {
-  role: 'user' | 'ai';
-  text: string;
-}
-
-interface Chapter {
-  name: string;
-  hasMaterial: boolean;
-}
 
 @Component({
   standalone: true,
@@ -20,85 +10,66 @@ interface Chapter {
   styleUrls: ['./chat.css'],
 })
 export class Chat {
-  chapters: Chapter[] = [
-    { name: 'Banking', hasMaterial: false },
-    { name: 'Circle', hasMaterial: false },
-    // Add more chapters as needed
-  ];
-  selectedChapter: Chapter | null = this.chapters[0];
-  messages: Message[] = [];
+  chapters = ['Banking', 'Circle'];
+  selectedChapter = 'Banking';
   userInput = '';
-
-  @ViewChild('chatScroll') chatScroll!: ElementRef<HTMLDivElement>;
-
-  selectChapter(chapter: Chapter) {
-    this.selectedChapter = chapter;
-    this.messages = [];
-  }
+  messages: { role: 'user' | 'ai'; text: string }[] = [];
+  uploadedFiles: { [key: string]: boolean } = {};
+  selectedQuestionImage: File | null = null;
 
   sendMessage() {
-    if (!this.userInput.trim() || !this.selectedChapter?.hasMaterial) return;
-    const text = this.userInput.trim();
-    this.messages.push({ role: 'user', text });
-    // Example: Replace with real API call
-    setTimeout(() => {
+    if (!this.userInput.trim() && !this.selectedQuestionImage) return;
+
+    // Show user input or image message
+    if (this.userInput.trim()) {
+      this.messages.push({ role: 'user', text: this.userInput.trim() });
       this.messages.push({
         role: 'ai',
-        text: `AI Response to: "${text}" for ${this.selectedChapter?.name}`,
+        text: `AI reply to "${this.userInput.trim()}"`,
       });
-      this.scrollToBottom();
-    }, 600);
+    }
+
+    if (this.selectedQuestionImage) {
+      this.messages.push({
+        role: 'user',
+        text: `📷 Uploaded question image: ${this.selectedQuestionImage.name}`,
+      });
+
+      // Simulated backend OCR reply
+      this.messages.push({
+        role: 'ai',
+        text: `🧠 AI answer to question from uploaded image.`,
+      });
+
+      this.selectedQuestionImage = null; // Reset after processing
+    }
+
     this.userInput = '';
-    this.scrollToBottom();
   }
 
   handleEnter(event: KeyboardEvent) {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    if (event.key === 'Enter') {
       event.preventDefault();
       this.sendMessage();
     }
   }
 
+  selectChapter(ch: string) {
+    this.selectedChapter = ch;
+    this.messages = [];
+  }
+
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
-    if (!file || !this.selectedChapter) return;
-    // TODO: Upload file to backend and set hasMaterial true on success
-    // Example: Simulate upload
-    setTimeout(() => {
-      this.selectedChapter!.hasMaterial = true;
-    }, 800);
+    if (file) {
+      this.uploadedFiles[this.selectedChapter] = true;
+    }
   }
 
-  requestSummary() {
-    if (!this.selectedChapter?.hasMaterial) return;
-    // TODO: Replace with API call
-    this.messages.push({
-      role: 'ai',
-      text: `Summary for ${this.selectedChapter.name}...`,
-    });
-    this.scrollToBottom();
-  }
-
-  requestMockTest() {
-    if (!this.selectedChapter?.hasMaterial) return;
-    // TODO: Replace with API call
-    this.messages.push({
-      role: 'ai',
-      text: `Mock test for ${this.selectedChapter.name}...`,
-    });
-    this.scrollToBottom();
-  }
-
-  ngAfterViewChecked() {
-    this.scrollToBottom();
-  }
-
-  scrollToBottom() {
-    try {
-      this.chatScroll?.nativeElement.scrollTo({
-        top: this.chatScroll.nativeElement.scrollHeight,
-        behavior: 'smooth',
-      });
-    } catch {}
+  onQuestionImageSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.selectedQuestionImage = file;
+    }
   }
 }

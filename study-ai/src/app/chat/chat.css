@@ -1,52 +1,113 @@
-/* Existing styles remain the same, append below or update as needed */
-
-.material-indicator {
-  margin-left: 4px;
-  color: #28a745;
-  font-size: 1rem;
+.chat-container {
+  display: flex;
+  border: 1px solid black;
+  height: 500px;
+  font-family: Arial, sans-serif;
 }
 
-.file-label {
-  display: block;
+.sidebar {
+  width: 200px;
+  padding: 10px;
+  border-right: 1px solid black;
+  background: white;
+  font-size: 14px;
+}
+
+.sidebar div {
+  margin: 6px 0;
+  cursor: pointer;
+}
+
+.sidebar .active {
+  color: blue;
+  font-weight: bold;
+}
+
+.chat-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid black;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 14px;
+  border-bottom: 1px solid black;
+}
+
+.chat-messages .placeholder {
+  color: #333;
+}
+
+.chat-messages .user {
+  text-align: right;
+  color: blue;
+  margin: 5px 0;
+}
+
+.chat-messages .ai {
+  text-align: left;
+  color: black;
+  margin: 5px 0;
+}
+
+.chat-input-bar {
+  display: flex;
+  padding: 8px;
+  gap: 6px;
+}
+
+.chat-input-bar input {
+  flex: 1;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.chat-input-bar button {
+  padding: 6px 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+/* Same CSS as before, add below */
+
+.upload-section {
   margin-top: 12px;
-  font-size: 0.95rem;
-  color: #444;
+  font-size: 13px;
 }
 
-input[type="file"] {
+.upload-section input[type='file'] {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.uploaded-status {
+  color: green;
+  font-weight: 500;
   margin-top: 4px;
 }
 
-.file-uploaded {
-  color: #28a745;
-  margin-left: 8px;
+
+/* Add below your existing styles */
+
+.upload-question {
+  margin-top: 6px;
+  font-size: 13px;
+  padding: 0 8px;
 }
 
-.chapter-actions {
-  margin-top: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.upload-question input {
+  margin-top: 4px;
+  font-size: 13px;
 }
 
-.chapter-actions button {
-  background: #e4eaf6;
-  border: 1px solid #b9c3d6;
-  border-radius: 6px;
-  padding: 5px 12px;
-  cursor: pointer;
-  font-size: 0.99rem;
-  margin-bottom: 3px;
-  transition: background 0.16s;
-}
-.chapter-actions button:hover {
-  background: #d8e4f7;
-}
-
-.material-warning {
-  color: #c0392b;
-  font-size: 1.02rem;
-  margin: 16px 0 0 0;
-  text-align: center;
-  font-weight: 600;
+.uploaded-status {
+  color: green;
+  font-weight: 500;
+  margin-top: 4px;
 }
