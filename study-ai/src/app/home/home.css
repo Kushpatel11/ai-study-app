@@ -1,0 +1,80 @@
+.session-container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.06);
+  padding: 36px 36px 24px 36px;
+  max-width: 420px;
+  margin: 48px auto;
+}
+
+.session-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 32px;
+  margin-top: 0;
+}
+
+.session-label {
+  display: block;
+  font-size: 1.2rem;
+  color: #444f6e;
+  margin-bottom: 6px;
+  margin-top: 18px;
+  font-weight: 500;
+}
+
+.session-input,
+.session-select {
+  display: block;
+  width: 100%;
+  padding: 18px 12px;
+  margin-bottom: 0;
+  border-radius: 10px;
+  border: 1.5px solid #ececec;
+  font-size: 1.15rem;
+  color: #444f6e;
+  background: #fafbfc;
+  outline: none;
+  transition: border 0.2s;
+  box-sizing: border-box;
+}
+
+.session-input:focus,
+.session-select:focus {
+  border-color: #b5b8c9;
+}
+
+.session-select {
+  font-weight: 500;
+  color: #111;
+  background: #fff;
+}
+
+.session-error {
+  color: #d32f2f;
+  font-size: 0.98rem;
+  margin: 3px 0 0 0;
+  min-height: 18px;
+  font-weight: 500;
+}
+
+.session-submit {
+  margin-top: 32px;
+  width: 100%;
+  padding: 14px 0;
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.18rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+  box-shadow: 0 1px 5px 0 rgba(26,115,232,0.08);
+}
+.session-submit[disabled],
+.session-submit[aria-disabled="true"] {
+  background: #b5c8e8;
+  cursor: not-allowed;
+}

@@ -1,0 +1,99 @@
+<div class="chat-ui">
+  <div class="chat-sidebar">
+    <div class="chat-subject">Maths Chapters ICSE<br />10th Std</div>
+    <div class="chat-chapters">
+      <div
+        *ngFor="let chapter of chapters"
+        [class.selected]="chapter.name === selectedChapter?.name"
+        (click)="selectChapter(chapter)"
+        tabindex="0"
+        (keydown.enter)="selectChapter(chapter)"
+        role="button"
+        [attr.aria-pressed]="chapter.name === selectedChapter?.name"
+      >
+        <span
+          [ngClass]="{
+            'chapter-link': chapter.name === selectedChapter?.name,
+            'chapter-plain': chapter.name !== selectedChapter?.name
+          }"
+        >
+          {{ chapter.name }}
+        </span>
+        <span
+          *ngIf="chapter.hasMaterial"
+          class="material-indicator"
+          title="Material uploaded"
+          >📄</span
+        >
+      </div>
+      <div *ngIf="selectedChapter">
+        <label class="file-label" for="chapter-file-upload"
+          >Upload PDF/Image:</label
+        >
+        <input
+          type="file"
+          id="chapter-file-upload"
+          (change)="onFileSelected($event)"
+          accept="image/*,.pdf"
+        />
+        <span *ngIf="selectedChapter.hasMaterial" class="file-uploaded"
+          >✔️ Uploaded</span
+        >
+      </div>
+    </div>
+    <div class="chapter-actions" *ngIf="selectedChapter?.hasMaterial">
+      <button
+        (click)="requestSummary()"
+        aria-label="Request summary of chapter"
+      >
+        Summary
+      </button>
+      <button (click)="requestMockTest()" aria-label="Request mock test">
+        Mock Test
+      </button>
+    </div>
+  </div>
+  <div class="chat-main">
+    <div class="chat-messages" id="chat-scroll" #chatScroll>
+      <div *ngFor="let msg of messages">
+        <div
+          [ngClass]="{
+            'msg-user': msg.role === 'user',
+            'msg-ai': msg.role === 'ai'
+          }"
+        >
+          <span *ngIf="msg.role === 'user'">You:</span>
+          <span *ngIf="msg.role === 'ai'">AI:</span>
+          {{ msg.text }}
+        </div>
+      </div>
+      <div *ngIf="messages.length === 0" class="chat-placeholder">
+        On this part the response will come in proper formatting similar to
+        ChatGPT
+      </div>
+    </div>
+    <form class="chat-input-bar" (ngSubmit)="sendMessage()">
+      <input
+        class="chat-input"
+        [(ngModel)]="userInput"
+        name="userInput"
+        placeholder="Ask anything"
+        (keydown)="handleEnter($event)"
+        autocomplete="off"
+        [disabled]="!selectedChapter?.hasMaterial"
+        aria-label="Ask anything"
+      />
+      <button
+        class="chat-send-btn"
+        type="submit"
+        aria-label="Send"
+        [disabled]="!selectedChapter?.hasMaterial"
+      >
+        <span>&#9658;</span>
+      </button>
+    </form>
+    <div *ngIf="!selectedChapter?.hasMaterial" class="material-warning">
+      Please upload material for this chapter to enable chat.
+    </div>
+  </div>
+</div>

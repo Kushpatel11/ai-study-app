@@ -1,0 +1,52 @@
+/* Existing styles remain the same, append below or update as needed */
+
+.material-indicator {
+  margin-left: 4px;
+  color: #28a745;
+  font-size: 1rem;
+}
+
+.file-label {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+input[type="file"] {
+  margin-top: 4px;
+}
+
+.file-uploaded {
+  color: #28a745;
+  margin-left: 8px;
+}
+
+.chapter-actions {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chapter-actions button {
+  background: #e4eaf6;
+  border: 1px solid #b9c3d6;
+  border-radius: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-size: 0.99rem;
+  margin-bottom: 3px;
+  transition: background 0.16s;
+}
+.chapter-actions button:hover {
+  background: #d8e4f7;
+}
+
+.material-warning {
+  color: #c0392b;
+  font-size: 1.02rem;
+  margin: 16px 0 0 0;
+  text-align: center;
+  font-weight: 600;
+}

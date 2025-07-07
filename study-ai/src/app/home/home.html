@@ -1,0 +1,87 @@
+<div class="session-container">
+  <form [formGroup]="sessionForm" (ngSubmit)="onSubmit()" novalidate>
+    <h2 class="session-title">Start Your Session</h2>
+
+    <label class="session-label" for="name">Enter Your Name</label>
+    <input
+      class="session-input"
+      id="name"
+      formControlName="name"
+      placeholder="Enter Your Name"
+      aria-required="true"
+      [attr.aria-invalid]="
+        sessionForm.get('name')?.invalid && sessionForm.get('name')?.touched
+      "
+      autocomplete="name"
+    />
+    <div
+      class="session-error"
+      *ngIf="
+        sessionForm.get('name')?.invalid && sessionForm.get('name')?.touched
+      "
+    >
+      Name is required.
+    </div>
+
+    <label class="session-label" for="mobile">Enter Your Mobile Number</label>
+    <input
+      class="session-input"
+      id="mobile"
+      formControlName="mobile"
+      placeholder="Enter Your Mobile Number"
+      aria-required="true"
+      [attr.aria-invalid]="
+        sessionForm.get('mobile')?.invalid && sessionForm.get('mobile')?.touched
+      "
+      maxlength="10"
+      autocomplete="tel"
+      inputmode="numeric"
+    />
+    <div
+      class="session-error"
+      *ngIf="
+        sessionForm.get('mobile')?.invalid && sessionForm.get('mobile')?.touched
+      "
+    >
+      <ng-container *ngIf="sessionForm.get('mobile')?.errors?.['required']">
+        Mobile is required.
+      </ng-container>
+      <ng-container *ngIf="sessionForm.get('mobile')?.errors?.['pattern']">
+        Only numbers allowed.
+      </ng-container>
+      <ng-container
+        *ngIf="sessionForm.get('mobile')?.errors?.['minlength'] || sessionForm.get('mobile')?.errors?.['maxlength']"
+      >
+        Mobile number must be 10 digits.
+      </ng-container>
+    </div>
+
+    <label class="session-label" for="chapter">Select Chapter</label>
+    <select
+      class="session-select"
+      id="chapter"
+      formControlName="chapter"
+      aria-required="true"
+    >
+      <option *ngFor="let c of chapters" [value]="c">{{ c }}</option>
+    </select>
+    <div
+      class="session-error"
+      *ngIf="
+        sessionForm.get('chapter')?.invalid &&
+        sessionForm.get('chapter')?.touched
+      "
+    >
+      Chapter is required.
+    </div>
+
+    <button
+      class="session-submit"
+      type="submit"
+      [disabled]="!sessionForm.valid"
+      [attr.aria-disabled]="!sessionForm.valid"
+    >
+      Start Session
+    </button>
+  </form>
+</div>
