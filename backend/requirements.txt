@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-docx
+pytesseract
+pillow
+PyMuPDF
+sentence-transformers
+torch
+scikit-learn
